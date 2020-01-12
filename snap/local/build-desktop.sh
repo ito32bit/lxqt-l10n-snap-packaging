@@ -46,3 +46,5 @@ for fp in $de ; do
       ;;
   esac
 done
+
+echo "+++ done desktop"

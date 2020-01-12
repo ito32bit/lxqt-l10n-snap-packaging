@@ -34,3 +34,5 @@ for fp in $ts ; do
   to="$to_d/$to_n"
   lrelease $fp -qm $to
 done
+
+echo "+++ done qm"

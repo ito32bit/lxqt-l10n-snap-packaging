@@ -1,0 +1,149 @@
+name: lxqt-l10n-snap
+base: core18
+title: lxqt-l10n-snap (unofficial)
+summary: Language package for LXQt desktop environment
+description: |
+  This package contains the l10n files.
+  
+  This is the unofficial snap packaging.  
+  Upstream: https://github.com/lxqt  
+
+grade: stable
+confinement: strict
+
+adopt-info: lxqt-l10n-snap
+
+apps:
+  lxqt-l10n-snap:
+    command: setup
+
+parts:
+  lxqt-l10n-snap:
+    plugin: nil
+    override-pull: |
+      c2=`git log --oneline -n 1`
+      d=`date +%Y%m%d`
+      { t2=${c2#???}; c2=${c2%$t2}; }
+      ver="$d.$SNAP_ARCH-$c2"
+      echo "Set version: $ver"
+      snapcraftctl set-version $ver
+    build-packages:
+      - qttools5-dev-tools
+  
+  default-settings:
+    plugin: dump
+    source: ./default-settings
+
+  ### lxqt repositories ###
+
+  liblxqt-snap:
+    source: https://github.com/lxqt/liblxqt.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-about-snap:
+    source: https://github.com/lxqt/lxqt-about.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-admin-snap:
+    source: https://github.com/lxqt/lxqt-admin.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-config-snap:
+    source: https://github.com/lxqt/lxqt-config.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-globalkeys-snap:
+    source: https://github.com/lxqt/lxqt-globalkeys.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-notificationd-snap:
+    source: https://github.com/lxqt/lxqt-notificationd.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-openssh-askpass-snap:
+    source: https://github.com/lxqt/lxqt-openssh-askpass.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-policykit-snap:
+    source: https://github.com/lxqt/lxqt-policykit.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-powermanagement-snap:
+    source: https://github.com/lxqt/lxqt-powermanagement.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-qtplugin-snap:
+    source: https://github.com/lxqt/lxqt-qtplugin.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-session-snap:
+    source: https://github.com/lxqt/lxqt-session.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-sudo-snap:
+    source: https://github.com/lxqt/lxqt-sudo.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-panel-snap:
+    source: https://github.com/lxqt/lxqt-panel.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  lxqt-runner-snap:
+    source: https://github.com/lxqt/lxqt-runner.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  libfm-qt-snap:
+    source: https://github.com/lxqt/libfm-qt.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh
+
+  pcmanfm-qt-snap:
+    source: https://github.com/lxqt/pcmanfm-qt.git
+    plugin: nil
+    override-build: |
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-qm.sh
+      $SNAPCRAFT_PROJECT_DIR/snap/local/build-desktop.sh

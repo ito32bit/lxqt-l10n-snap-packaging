@@ -1,0 +1,39 @@
+#!/bin/bash
+
+fn=$XDG_CONFIG_HOME/lxqt/session.conf
+
+path=/snap/lxqt-l10n-snap/current
+x1=XDG_CONFIG_DIRS=$path/etc/xdg:\$XDG_CONFIG_DIRS
+x2=XDG_DATA_DIRS=$path/usr/share:\$XDG_DATA_DIRS
+
+if [[ "$SNAP_NAME" != "" ]] ; then
+  echo "
+Setup required: environment variables
+  export $x1
+  export $x2
+
+You can run a command:
+  /snap/$SNAP_NAME/current/setup
+"
+  exit 1
+fi
+
+echo "
+Updated $fn
+"
+
+sed -i.bak $fn -e "/^\[Environment]/a$x1\n$x2" -e /^XDG_DATA_DIRS=/d -e /^XDG_CONFIG_DIRS=/d
+
+echo "Session Restart Required"
+ln=${LANG:0:2}
+case $ln in
+  ja)
+    echo "[$ln] セッションの再起動(ログアウト＆ログイン)が必要です"
+    ;;
+  de)
+    echo "[$ln] Sitzungsneustart erforderlich"
+    ;;
+  fr)
+    echo "[$ln] Redémarrage de session requis"
+    ;;
+esac

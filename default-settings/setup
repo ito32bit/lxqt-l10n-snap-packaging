@@ -12,9 +12,10 @@ Setup required: environment variables
   export $x1
   export $x2
 
-You can run a command:
+You can run a command in terminal:
   /snap/$SNAP_NAME/current/setup
 "
+  read -p "Press Enter key "
   exit 1
 fi
 

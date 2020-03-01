@@ -24,6 +24,9 @@ for fp in $de ; do
     *.directory*)
       to_d=$inst/desktop-directories
       ;;
+    *xsession*)
+      to_d=$inst/xsessions
+      ;;
     *)
       to_d=$inst/applications
       ;;

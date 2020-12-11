@@ -9,7 +9,12 @@ else
 fi
 echo "+++ Install desktop: $inst"
 
-de=`find . -name *.desktop.in`" "`find . -name *.desktop`" "`find . -name lxqt-*.directory.in`" "`find . -name lxqt-*.directory`
+de="
+    `find . -name *.desktop.in`
+    `find . -name *.desktop.yaml`
+    `find . -name lxqt-*.directory.in`
+    `find . -name lxqt-*.directory.yaml`
+"
 for fp in $de ; do
   dn=${fp%/*}
   fn=${fp##*/}
@@ -37,15 +42,17 @@ for fp in $de ; do
       to=$to_d/${fn%.in}
       cp -v $fp $to
       ;;
-    *_*.desktop | *_*.directory)
-      fn2=${fn/_*./.}
+    *.desktop.yaml | *.directory.yaml)
+      fn2=${fn%.yaml}
+      fn2=${fn2/_*./.}
       to=$to_d/$fn2
+      lang=""
+      if [[ $fn =~ [^_]*_([^\.]*)\..* ]] ; then
+        lang=[${BASH_REMATCH[1]}]
+      fi
       echo "cat; $fp"
-      cat $fp | grep -E "^Name\[|^Comment\[|^GenericName\[" >> $to
-      ;;
-    *.desktop | *.directory)
-      to=$to_d/$fn
-      cp -v $fp $to
+      pat='^Desktop Entry/\(.*\): "\(.*\)"'
+      cat $fp | sed -e "s!$pat!\1$lang=\2!" >> $to
       ;;
   esac
 done
